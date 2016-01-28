@@ -1,0 +1,45 @@
+'@type': "SoftwareComponentType"
+createdDate: "2016-01-27T04:36:53.672Z"
+lastUpdated: "2016-01-27T04:37:02.205Z"
+id: "Software.LinuxConfigurationforCentOS7"
+name: "Linux Configuration for CentOS 7"
+publishStatus: "PUBLISHED"
+publishStatusName: "Published"
+schema:
+  fields:
+  - id: "host"
+    label: "Container"
+    description: ""
+    dataType:
+      type: "ref"
+      componentTypeId: "com.vmware.csp.iaas.blueprint.service"
+      classId: "Infrastructure.Machine.Schema"
+      label: "Machine"
+    state:
+      dependencies: []
+      facets:
+      - type: "visible"
+        value:
+          type: "constantClause"
+          value:
+            type: "boolean"
+            value: false
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+    isMultiValued: false
+containerFieldId: "host"
+lifecycleTasks:
+- createdDate: "2016-01-27T04:36:53.672Z"
+  lastUpdated: "2016-01-27T20:28:38.784Z"
+  script:
+    scriptContent: "#Disable Firewalld Service\n/usr/bin/systemctl disable firewalld.service\n\
+      #Stop Firewalld Service\n/usr/bin/systemctl stop firewalld.service"
+    isRebootAfter: false
+    scriptTypeId: "Bash"
+  taskDescriptorRef:
+    id: "INSTALL"
+    label: "Install"

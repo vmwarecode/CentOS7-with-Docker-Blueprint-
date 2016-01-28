@@ -1,1 +1,0 @@
-# CentOS7-with-Docker-Blueprint-

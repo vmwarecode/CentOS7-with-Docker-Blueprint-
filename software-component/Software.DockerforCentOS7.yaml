@@ -1,0 +1,67 @@
+'@type': "SoftwareComponentType"
+createdDate: "2016-01-27T04:27:45.326Z"
+lastUpdated: "2016-01-27T04:55:35.414Z"
+id: "Software.DockerforCentOS7"
+name: "Docker for CentOS7"
+publishStatus: "PUBLISHED"
+publishStatusName: "Published"
+schema:
+  fields:
+  - id: "host"
+    label: "Container"
+    description: ""
+    dataType:
+      type: "ref"
+      componentTypeId: "com.vmware.csp.iaas.blueprint.service"
+      classId: "Infrastructure.Machine.Schema"
+      label: "Machine"
+    state:
+      dependencies: []
+      facets:
+      - type: "visible"
+        value:
+          type: "constantClause"
+          value:
+            type: "boolean"
+            value: false
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+    isMultiValued: false
+containerFieldId: "host"
+lifecycleTasks:
+- createdDate: "2016-01-27T04:27:45.327Z"
+  lastUpdated: "2016-01-28T21:23:30.144Z"
+  script:
+    scriptContent: "#Start the Docker service \n/usr/bin/systemctl start docker.service\n\
+      #Verify the status of Docker\n#/usr/bin/systemctl status docker.service\n# For\
+      \ troubleshooting \n#journalctl -xe"
+    isRebootAfter: false
+    scriptTypeId: "Bash"
+  taskDescriptorRef:
+    id: "START"
+    label: "Start"
+- createdDate: "2016-01-27T04:27:45.327Z"
+  lastUpdated: "2016-01-28T21:23:30.144Z"
+  script:
+    scriptContent: "#Update our packages\nyum -y update \n#Install Docker\nyum -y\
+      \ install docker docker-registry"
+    isRebootAfter: false
+    scriptTypeId: "Bash"
+  taskDescriptorRef:
+    id: "INSTALL"
+    label: "Install"
+- createdDate: "2016-01-27T04:27:45.327Z"
+  lastUpdated: "2016-01-28T21:23:30.144Z"
+  script:
+    scriptContent: "#Set the Docker service to start at boot:\n/usr/bin/systemctl\
+      \ enable docker.service\n#Fix Docker Storage\nrm -f /etc/sysconfig/docker-storage\n\
+      echo \"DOCKER_STORAGE_OPTIONS= -s overlay\" > /etc/sysconfig/docker-storage"
+    isRebootAfter: false
+    scriptTypeId: "Bash"
+  taskDescriptorRef:
+    id: "CONFIGURE"
+    label: "Configure"

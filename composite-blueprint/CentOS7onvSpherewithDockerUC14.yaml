@@ -1,0 +1,116 @@
+id: CentOS7onvSpherewithDockerUC14
+name: CentOS 7 on vSphere - with Docker- UC14
+description: Use to provision a CentOS 7 64 bit Virtual Machine connected to an external network on vSphere with Docker installed
+status: PUBLISHED
+properties:
+  __nsx.edge_reservation_policy:
+    fixed: NSX Reservation Policy
+    secured: false
+    visible: false
+  __nsx.management_endpoint_name:
+    fixed: vCenter
+    secured: false
+    visible: false
+  __nsx.transport_zone_name:
+    fixed: VMwarelab-Transport-Zone
+    secured: false
+    visible: false
+  _archiveDays: 30
+  _leaseDays:
+    default: 7
+    max: 15
+    min: 7
+components:
+  Docker_for_CentOS7_1:
+    type: Software.DockerforCentOS7
+    dependsOn:
+    - Linux_Configuration_for_CentOS_7_1
+    data:
+      host: ${_resource~vSphere_Machine_1}
+  External:
+    type: Infrastructure.Network.Network.Existing
+    data:
+      name:
+        fixed: External
+      network_profile:
+        fixed: External
+  Linux_Configuration_for_CentOS_7_1:
+    type: Software.LinuxConfigurationforCentOS7
+    data:
+      host: ${_resource~vSphere_Machine_1}
+  vSphere_Machine_1:
+    type: Infrastructure.CatalogItem.Machine.Virtual.vSphere
+    data:
+      _cluster:
+        default: 1
+        max: 2
+        min: 1
+      action:
+        fixed: LinkedClone
+      allow_storage_policies:
+        fixed: false
+      blueprint_type:
+        fixed: '1'
+      cpu:
+        default: 1
+        max: 2
+        min: 1
+      disks:
+      - capacity: 20
+        custom_properties: null
+        id: 1454020472971
+        initial_location: ''
+        is_clone: true
+        label: Hard disk 1
+        storage_reservation_policy: Cloud Synology Storage Reservation Policy
+        userCreated: false
+        volumeId: 0
+      display_location:
+        fixed: false
+      guest_customization_specification: CentOS65
+      machine_prefix:
+        fixed:
+          id: vRA-VM-
+      max_network_adapters: {}
+      max_volumes: {}
+      memory:
+        default: 512
+        max: 1024
+        min: 512
+      nics:
+      - address: ''
+        assignment_type: Static
+        id: 0
+        load_balancing: ''
+        network: ${_resource~External}
+        network_profile: External
+      provisioning_workflow:
+        fixed:
+          id: CloneWorkflow
+          label: CloneWorkflow
+      reservation_policy:
+        id: vSphere Reservation Policy
+        label: vSphere Reservation Policy
+      security_groups: []
+      security_tags: []
+      source_machine:
+        fixed:
+          id: 7d8a6d7d-dda7-4122-ba67-2a03270b9234
+          label: CentOS7.0_64
+      source_machine_external_snapshot:
+        fixed: 2
+      source_machine_name:
+        fixed: CentOS7.0_64
+      source_machine_vmsnapshot:
+        fixed:
+          id: '27'
+      storage:
+        fixed: 20
+        min: 20
+    propertyGroups:
+    - LinuxCustomization
+layout:
+  Docker_for_CentOS7_1: 0,0
+  External: 1,0
+  Linux_Configuration_for_CentOS_7_1: 1,0
+  vSphere_Machine_1: 0,0

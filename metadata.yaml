@@ -1,0 +1,14 @@
+name: "auto-generated-pkg-10f39926-bb46-49ce-bb74-fdb847433da1"
+productVersion: "7.0.0-SNAPSHOT"
+data:
+- locator: "composite-blueprint/CentOS7onvSpherewithDockerUC14.yaml"
+  name: "CentOS 7 on vSphere - with Docker- UC14"
+  description: "CentOS 7 on vSphere - with Docker- UC14"
+  dependencies:
+  - "software-component/Software.DockerforCentOS7.yaml"
+  - "software-component/Software.LinuxConfigurationforCentOS7.yaml"
+- locator: "software-component/Software.LinuxConfigurationforCentOS7.yaml"
+  name: "Linux Configuration for CentOS 7"
+- locator: "software-component/Software.DockerforCentOS7.yaml"
+  name: "Docker for CentOS7"
+exportTime: "2016-01-28T22:38:56.013Z"
